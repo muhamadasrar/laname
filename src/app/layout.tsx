@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Laname Store — Belanja Hemat, Produk Terbaik",
+  title: "Gudang Diskon — Belanja Hemat, Produk Terbaik",
   description: "Temukan produk terbaik dengan harga termurah. Belanja aman langsung di Shopee dengan diskon eksklusif.",
   keywords: "belanja online, promo shopee, diskon, affiliate, produk murah",
   openGraph: {
-    title: "Laname Store — Belanja Hemat, Produk Terbaik",
+    title: "Gudang Diskon — Belanja Hemat, Produk Terbaik",
     description: "Temukan produk terbaik dengan harga termurah.",
     type: "website",
   },

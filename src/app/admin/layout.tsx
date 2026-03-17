@@ -87,7 +87,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                     {/* Logo */}
                     <div className="p-5 border-b border-white/5">
                         <h1 className="text-lg font-bold text-white">
-                            Laname<span className="text-admin-accent">Admin</span>
+                            GD<span className="text-admin-accent">Admin</span>
                         </h1>
                         <p className="text-[10px] text-gray-500 mt-0.5">Panel Manajemen Produk</p>
                     </div>

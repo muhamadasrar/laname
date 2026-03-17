@@ -44,7 +44,7 @@ export default function AdminLoginPage() {
                 {/* Logo */}
                 <div className="text-center mb-8">
                     <h1 className="text-2xl font-bold text-white">
-                        Laname<span className="text-admin-accent">Admin</span>
+                        GD<span className="text-admin-accent">Admin</span>
                     </h1>
                     <p className="text-gray-500 text-sm mt-1">Masuk ke panel admin</p>
                 </div>

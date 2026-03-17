@@ -28,7 +28,7 @@ export default function Header() {
                 {/* Logo */}
                 <Link href="/" className="flex items-center gap-2">
                     <span className="text-white text-xl font-extrabold tracking-tight">
-                        Laname<span className="text-yellow-300">Store</span>.
+                        Gudang<span className="text-yellow-300">Diskon</span>
                     </span>
                 </Link>
 

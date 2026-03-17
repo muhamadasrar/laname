@@ -5,7 +5,7 @@ export default function Footer() {
                 {/* Disclaimer */}
                 <div className="bg-gray-50 rounded-lg p-4 mb-4">
                     <p className="text-xs text-gray-500 leading-relaxed">
-                        <span className="font-semibold text-gray-600">Disclaimer:</span> Laname Store adalah katalog afiliasi.
+                        <span className="font-semibold text-gray-600">Disclaimer:</span> Gudang Diskon adalah katalog afiliasi.
                         Semua transaksi dan pengiriman dilakukan secara aman melalui platform resmi Shopee.
                         Kami tidak memproses pembayaran atau pengiriman apapun.
                     </p>
@@ -14,7 +14,7 @@ export default function Footer() {
                 {/* Bottom */}
                 <div className="text-center">
                     <p className="text-xs text-gray-400">
-                        © 2026 Laname Store. All rights reserved.
+                        © 2026 Gudang Diskon. All rights reserved.
                     </p>
                 </div>
             </div>

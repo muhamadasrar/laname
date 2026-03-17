@@ -66,7 +66,7 @@ export default function HomePage() {
         <main className="px-3 pt-4 pb-6">
           {/* Search */}
           <div className="mb-4">
-            <SearchBar onSearch={setSearchQuery} placeholder="Cari produk di Laname Store..." />
+            <SearchBar onSearch={setSearchQuery} placeholder="Cari produk di Gudang Diskon..." />
           </div>
 
           {/* Category Pills */}
