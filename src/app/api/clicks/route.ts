@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { incrementClick } from "@/lib/db";
+import { incrementClicks } from "@/lib/db";
 
 export async function POST(request: NextRequest) {
     const body = await request.json();
@@ -9,6 +9,6 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: "product_id is required" }, { status: 400 });
     }
 
-    const newCount = incrementClick(product_id);
-    return NextResponse.json({ clicks_count: newCount });
+    const success = await incrementClicks(product_id);
+    return NextResponse.json({ success });
 }

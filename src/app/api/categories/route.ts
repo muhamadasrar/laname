@@ -3,7 +3,7 @@ import { getCategories, addCategory } from "@/lib/db";
 import { validateToken } from "@/lib/auth";
 
 export async function GET() {
-    const categories = getCategories();
+    const categories = await getCategories();
     return NextResponse.json(categories);
 }
 
@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: "Name is required" }, { status: 400 });
     }
 
-    const category = addCategory({
+    const category = await addCategory({
         name,
         slug: slug || name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, ""),
     });

@@ -12,7 +12,7 @@ export async function PUT(
     }
 
     const body = await request.json();
-    const updated = updateCategory(params.id, body);
+    const updated = await updateCategory(params.id, body);
     if (!updated) {
         return NextResponse.json({ error: "Not found" }, { status: 404 });
     }
@@ -28,7 +28,7 @@ export async function DELETE(
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const deleted = deleteCategory(params.id);
+    const deleted = await deleteCategory(params.id);
     if (!deleted) {
         return NextResponse.json({ error: "Not found" }, { status: 404 });
     }

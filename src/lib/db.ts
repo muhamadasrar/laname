@@ -1,13 +1,6 @@
-import fs from "fs";
-import path from "path";
+import { supabase } from "./supabase";
 
-export interface Category {
-    id: string;
-    name: string;
-    slug: string;
-    created_at: string;
-}
-
+// ============ Types ============
 export interface Product {
     id: string;
     title: string;
@@ -16,150 +9,249 @@ export interface Product {
     original_price: number;
     discount_price: number;
     affiliate_url: string;
-    category_id: string;
     rating: number;
     sold_count: number;
     badge: string;
+    category_id: string;
     clicks_count: number;
     is_active: boolean;
     created_at: string;
 }
 
-interface DB {
-    categories: Category[];
-    products: Product[];
+export interface Category {
+    id: string;
+    name: string;
+    slug: string;
 }
 
-const DB_PATH = path.join(process.cwd(), "data", "db.json");
+// ============ Products ============
 
-function readDB(): DB {
-    const raw = fs.readFileSync(DB_PATH, "utf-8");
-    return JSON.parse(raw);
-}
+export async function getProducts(categorySlug?: string): Promise<Product[]> {
+    let query = supabase
+        .from("products")
+        .select("*, categories(slug)")
+        .eq("is_active", true)
+        .order("created_at", { ascending: false });
 
-function writeDB(db: DB): void {
-    fs.writeFileSync(DB_PATH, JSON.stringify(db, null, 2), "utf-8");
-}
+    if (categorySlug) {
+        // Join with categories table and filter by slug
+        const { data: cat } = await supabase
+            .from("categories")
+            .select("id")
+            .eq("slug", categorySlug)
+            .single();
 
-// ---------- Categories ----------
-
-export function getCategories(): Category[] {
-    return readDB().categories;
-}
-
-export function getCategoryBySlug(slug: string): Category | undefined {
-    return readDB().categories.find((c) => c.slug === slug);
-}
-
-export function getCategoryById(id: string): Category | undefined {
-    return readDB().categories.find((c) => c.id === id);
-}
-
-export function addCategory(cat: Omit<Category, "id" | "created_at">): Category {
-    const db = readDB();
-    const newCat: Category = {
-        ...cat,
-        id: `cat-${Date.now()}`,
-        created_at: new Date().toISOString(),
-    };
-    db.categories.push(newCat);
-    writeDB(db);
-    return newCat;
-}
-
-export function updateCategory(id: string, data: Partial<Category>): Category | null {
-    const db = readDB();
-    const idx = db.categories.findIndex((c) => c.id === id);
-    if (idx === -1) return null;
-    db.categories[idx] = { ...db.categories[idx], ...data };
-    writeDB(db);
-    return db.categories[idx];
-}
-
-export function deleteCategory(id: string): boolean {
-    const db = readDB();
-    const len = db.categories.length;
-    db.categories = db.categories.filter((c) => c.id !== id);
-    if (db.categories.length === len) return false;
-    writeDB(db);
-    return true;
-}
-
-// ---------- Products ----------
-
-export function getProducts(categoryId?: string): Product[] {
-    const db = readDB();
-    let products = db.products.filter((p) => p.is_active);
-    if (categoryId) {
-        products = products.filter((p) => p.category_id === categoryId);
+        if (cat) {
+            query = query.eq("category_id", cat.id);
+        } else {
+            return [];
+        }
     }
-    return products.sort(
-        (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-    );
+
+    const { data, error } = await query;
+    if (error) {
+        console.error("Error fetching products:", error);
+        return [];
+    }
+    return (data as Product[]) || [];
 }
 
-export function getAllProducts(): Product[] {
-    return readDB().products.sort(
-        (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-    );
+export async function getAllProducts(): Promise<Product[]> {
+    const { data, error } = await supabase
+        .from("products")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+    if (error) {
+        console.error("Error fetching all products:", error);
+        return [];
+    }
+    return (data as Product[]) || [];
 }
 
-export function getProductBySlug(slug: string): Product | undefined {
-    return readDB().products.find((p) => p.slug === slug);
+export async function getProductById(id: string): Promise<Product | null> {
+    const { data, error } = await supabase
+        .from("products")
+        .select("*")
+        .eq("id", id)
+        .single();
+
+    if (error) {
+        console.error("Error fetching product:", error);
+        return null;
+    }
+    return data as Product;
 }
 
-export function getProductById(id: string): Product | undefined {
-    return readDB().products.find((p) => p.id === id);
+export async function getProductBySlug(slug: string): Promise<Product | null> {
+    const { data, error } = await supabase
+        .from("products")
+        .select("*")
+        .eq("slug", slug)
+        .single();
+
+    if (error) {
+        console.error("Error fetching product by slug:", error);
+        return null;
+    }
+    return data as Product;
 }
 
-export function addProduct(
-    prod: Omit<Product, "id" | "clicks_count" | "created_at">
-): Product {
-    const db = readDB();
-    const newProd: Product = {
-        ...prod,
-        id: `prod-${Date.now()}`,
-        clicks_count: 0,
-        created_at: new Date().toISOString(),
-    };
-    db.products.push(newProd);
-    writeDB(db);
-    return newProd;
+export async function addProduct(
+    product: Omit<Product, "id" | "clicks_count" | "created_at">
+): Promise<Product | null> {
+    const { data, error } = await supabase
+        .from("products")
+        .insert({
+            title: product.title,
+            slug: product.slug,
+            image_url: product.image_url,
+            original_price: product.original_price,
+            discount_price: product.discount_price,
+            affiliate_url: product.affiliate_url,
+            rating: product.rating,
+            sold_count: product.sold_count,
+            badge: product.badge || "",
+            category_id: product.category_id || null,
+            is_active: product.is_active ?? true,
+            clicks_count: 0,
+        })
+        .select()
+        .single();
+
+    if (error) {
+        console.error("Error adding product:", error);
+        return null;
+    }
+    return data as Product;
 }
 
-export function updateProduct(id: string, data: Partial<Product>): Product | null {
-    const db = readDB();
-    const idx = db.products.findIndex((p) => p.id === id);
-    if (idx === -1) return null;
-    db.products[idx] = { ...db.products[idx], ...data };
-    writeDB(db);
-    return db.products[idx];
+export async function updateProduct(
+    id: string,
+    updates: Partial<Product>
+): Promise<Product | null> {
+    // Remove fields that shouldn't be updated directly
+    const { id: _id, created_at: _ca, ...cleanUpdates } = updates;
+    void _id;
+    void _ca;
+
+    const { data, error } = await supabase
+        .from("products")
+        .update(cleanUpdates)
+        .eq("id", id)
+        .select()
+        .single();
+
+    if (error) {
+        console.error("Error updating product:", error);
+        return null;
+    }
+    return data as Product;
 }
 
-export function deleteProduct(id: string): boolean {
-    const db = readDB();
-    const len = db.products.length;
-    db.products = db.products.filter((p) => p.id !== id);
-    if (db.products.length === len) return false;
-    writeDB(db);
+export async function deleteProduct(id: string): Promise<boolean> {
+    const { error } = await supabase.from("products").delete().eq("id", id);
+
+    if (error) {
+        console.error("Error deleting product:", error);
+        return false;
+    }
     return true;
 }
 
-export function incrementClick(productId: string): number {
-    const db = readDB();
-    const idx = db.products.findIndex((p) => p.id === productId);
-    if (idx === -1) return 0;
-    db.products[idx].clicks_count += 1;
-    writeDB(db);
-    return db.products[idx].clicks_count;
+export async function incrementClicks(productId: string): Promise<boolean> {
+    // First get current clicks
+    const { data: product } = await supabase
+        .from("products")
+        .select("clicks_count")
+        .eq("id", productId)
+        .single();
+
+    if (!product) return false;
+
+    const { error } = await supabase
+        .from("products")
+        .update({ clicks_count: (product.clicks_count || 0) + 1 })
+        .eq("id", productId);
+
+    if (error) {
+        console.error("Error incrementing clicks:", error);
+        return false;
+    }
+    return true;
 }
 
-export function getTopProducts(limit = 10): Product[] {
-    return readDB()
-        .products.sort((a, b) => b.clicks_count - a.clicks_count)
-        .slice(0, limit);
+// ============ Categories ============
+
+export async function getCategories(): Promise<Category[]> {
+    const { data, error } = await supabase
+        .from("categories")
+        .select("*")
+        .order("name", { ascending: true });
+
+    if (error) {
+        console.error("Error fetching categories:", error);
+        return [];
+    }
+    return (data as Category[]) || [];
 }
 
-export function getTotalClicks(): number {
-    return readDB().products.reduce((sum, p) => sum + p.clicks_count, 0);
+export async function getCategoryBySlug(
+    slug: string
+): Promise<Category | null> {
+    const { data, error } = await supabase
+        .from("categories")
+        .select("*")
+        .eq("slug", slug)
+        .single();
+
+    if (error) return null;
+    return data as Category;
+}
+
+export async function addCategory(
+    category: Omit<Category, "id">
+): Promise<Category | null> {
+    const { data, error } = await supabase
+        .from("categories")
+        .insert({
+            name: category.name,
+            slug: category.slug,
+        })
+        .select()
+        .single();
+
+    if (error) {
+        console.error("Error adding category:", error);
+        return null;
+    }
+    return data as Category;
+}
+
+export async function updateCategory(
+    id: string,
+    updates: Partial<Category>
+): Promise<Category | null> {
+    const { data, error } = await supabase
+        .from("categories")
+        .update(updates)
+        .eq("id", id)
+        .select()
+        .single();
+
+    if (error) {
+        console.error("Error updating category:", error);
+        return null;
+    }
+    return data as Category;
+}
+
+export async function deleteCategory(id: string): Promise<boolean> {
+    const { error } = await supabase.from("categories").delete().eq("id", id);
+
+    if (error) {
+        console.error("Error deleting category:", error);
+        return false;
+    }
+    return true;
 }

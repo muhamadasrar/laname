@@ -4,10 +4,10 @@ import { validateToken } from "@/lib/auth";
 
 export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
-    const categoryId = searchParams.get("category_id") || undefined;
+    const categorySlug = searchParams.get("category") || undefined;
     const all = searchParams.get("all");
 
-    const products = all === "true" ? getAllProducts() : getProducts(categoryId);
+    const products = all === "true" ? await getAllProducts() : await getProducts(categorySlug);
     return NextResponse.json(products);
 }
 
@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
-    const product = addProduct({
+    const product = await addProduct({
         title,
         slug: slug || title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, ""),
         image_url,
