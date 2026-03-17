@@ -1,0 +1,164 @@
+{
+  "categories": [
+    {
+      "id": "cat-1",
+      "name": "Outfit Pria",
+      "slug": "outfit-pria",
+      "created_at": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": "cat-2",
+      "name": "Gadget",
+      "slug": "gadget",
+      "created_at": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": "cat-3",
+      "name": "Sepatu",
+      "slug": "sepatu",
+      "created_at": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": "cat-4",
+      "name": "Aksesoris",
+      "slug": "aksesoris",
+      "created_at": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": "cat-5",
+      "name": "Promo Spesial",
+      "slug": "promo-spesial",
+      "created_at": "2026-01-01T00:00:00Z"
+    }
+  ],
+  "products": [
+    {
+      "id": "prod-1",
+      "title": "Jam Tangan Pria Minimalis Anti Air Original - Strap Kulit Hitam",
+      "slug": "jam-tangan-pria-minimalis-anti-air",
+      "image_url": "https://down-id.img.susercontent.com/file/id-11134207-7rasl-m1eqmcaswamg5f",
+      "original_price": 250000,
+      "discount_price": 99000,
+      "affiliate_url": "https://shope.ee/example1",
+      "category_id": "cat-4",
+      "rating": 4.9,
+      "sold_count": 2100,
+      "badge": "Diskon 60%",
+      "clicks_count": 342,
+      "is_active": true,
+      "created_at": "2026-01-15T00:00:00Z"
+    },
+    {
+      "id": "prod-2",
+      "title": "Headphone Bluetooth Wireless Bass Boosted TWS",
+      "slug": "headphone-bluetooth-wireless-bass-boosted-tws",
+      "image_url": "https://down-id.img.susercontent.com/file/id-11134207-7rasd-m1eqn9gfwx7i13",
+      "original_price": 350000,
+      "discount_price": 149000,
+      "affiliate_url": "https://shope.ee/example2",
+      "category_id": "cat-2",
+      "rating": 4.8,
+      "sold_count": 870,
+      "badge": "Best Seller",
+      "clicks_count": 215,
+      "is_active": true,
+      "created_at": "2026-01-16T00:00:00Z"
+    },
+    {
+      "id": "prod-3",
+      "title": "Sepatu Sneakers Pria Kasual Import - Sol Empuk Anti Slip",
+      "slug": "sepatu-sneakers-pria-kasual-import",
+      "image_url": "https://down-id.img.susercontent.com/file/sg-11134201-22100-5vqd9s52q0iv0f",
+      "original_price": 450000,
+      "discount_price": 189000,
+      "affiliate_url": "https://shope.ee/example3",
+      "category_id": "cat-3",
+      "rating": 4.7,
+      "sold_count": 1540,
+      "badge": "Diskon 58%",
+      "clicks_count": 189,
+      "is_active": true,
+      "created_at": "2026-01-17T00:00:00Z"
+    },
+    {
+      "id": "prod-4",
+      "title": "Kaos Polo Pria Premium Cotton - Banyak Warna",
+      "slug": "kaos-polo-pria-premium-cotton",
+      "image_url": "https://down-id.img.susercontent.com/file/sg-11134201-22100-n3yelm8dq0iv16",
+      "original_price": 180000,
+      "discount_price": 79000,
+      "affiliate_url": "https://shope.ee/example4",
+      "category_id": "cat-1",
+      "rating": 4.8,
+      "sold_count": 3200,
+      "badge": "Diskon 56%",
+      "clicks_count": 478,
+      "is_active": true,
+      "created_at": "2026-01-18T00:00:00Z"
+    },
+    {
+      "id": "prod-5",
+      "title": "TWS Earbuds Gaming Low Latency - LED RGB",
+      "slug": "tws-earbuds-gaming-low-latency",
+      "image_url": "https://down-id.img.susercontent.com/file/id-11134207-7rasd-m1eqn9gfwx7i13",
+      "original_price": 280000,
+      "discount_price": 119000,
+      "affiliate_url": "https://shope.ee/example5",
+      "category_id": "cat-2",
+      "rating": 4.6,
+      "sold_count": 956,
+      "badge": "Flash Sale",
+      "clicks_count": 167,
+      "is_active": true,
+      "created_at": "2026-01-19T00:00:00Z"
+    },
+    {
+      "id": "prod-6",
+      "title": "Celana Jogger Pria Slim Fit Bahan Tebal",
+      "slug": "celana-jogger-pria-slim-fit",
+      "image_url": "https://down-id.img.susercontent.com/file/sg-11134201-22100-5vqd9s52q0iv0f",
+      "original_price": 200000,
+      "discount_price": 89000,
+      "affiliate_url": "https://shope.ee/example6",
+      "category_id": "cat-1",
+      "rating": 4.5,
+      "sold_count": 1820,
+      "badge": "Diskon 55%",
+      "clicks_count": 234,
+      "is_active": true,
+      "created_at": "2026-01-20T00:00:00Z"
+    },
+    {
+      "title": "Spatula Set Putih 3 PC Sutil Silicone Alat Masak Silikon Tahan Panas 3 IN 1 Sendok Masak Sup - Sendok Dapur Turner",
+      "slug": "spatula-set-putih-3-pc-sutil-silicone-alat-masak-silikon-tahan-panas-3-in-1-sendok-masak-sup-sendok-dapur-turner",
+      "image_url": "https://down-id.img.susercontent.com/file/sg-11134201-7rd4m-m7kik9yko0dr3f_tn",
+      "original_price": 99000,
+      "discount_price": 4000,
+      "affiliate_url": "https://s.shopee.co.id/3LMAg6OJ8S",
+      "category_id": "cat-4",
+      "rating": 4.9,
+      "sold_count": 10000,
+      "badge": "FLASH SALE",
+      "is_active": true,
+      "id": "prod-1773740443558",
+      "clicks_count": 1,
+      "created_at": "2026-03-17T09:40:43.558Z"
+    },
+    {
+      "title": "Gerai Hawa - Family Set 4 - Tameera Gamis Dress Abaya Set French Khimar Exclusive Motif Metamorphose - Light's Embrace Edition - Bayti Serenity",
+      "slug": "gerai-hawa-family-set-4-tameera-gamis-dress-abaya-set-french-khimar-exclusive-motif-metamorphose-light-s-embrace-edition-bayti-serenity",
+      "image_url": "https://down-id.img.susercontent.com/file/id-11134207-82251-mki5tgx2lkaufd@resize_w900_nl.webp",
+      "original_price": 899000,
+      "discount_price": 99000,
+      "affiliate_url": "https://s.shopee.co.id/8fNh23zl4A",
+      "category_id": "cat-1",
+      "rating": 5,
+      "sold_count": 1000,
+      "badge": "Diskon 89%",
+      "is_active": true,
+      "id": "prod-1773740606874",
+      "clicks_count": 2,
+      "created_at": "2026-03-17T09:43:26.875Z"
+    }
+  ]
+}
